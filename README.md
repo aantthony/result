@@ -1,0 +1,2 @@
+# result
+Typescript "Result" types
