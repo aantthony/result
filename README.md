@@ -55,8 +55,11 @@ Using AsyncResult keeps function declarations short.
 Returns a promise that resolves to a Result containing Ok(resolved) or Err(rejected).
 
 ```typescript
+import { readFile } from 'fs/promises';
+import { AsyncResult } from 'ts-simple-result';
+
 // res: Result<Buffer, Error>
-const res = AsyncResult(readFile('./filename.txt'));
+const res = await AsyncResult(readFile('./filename.txt'));
 
 if (res.ok) {
   console.log('File contents:', res.val);
@@ -71,15 +74,31 @@ if (res.ok) {
 Similar to `Promise.all(...)` but returns an `AsyncResult`, which contains an array of results, or an error if any of the promises fail.
 
 ```typescript
-const res = AsyncResult.all([
-  readFile('./file1.txt'),
-  readFile('./file2.txt'),
-  readFile('./file3.txt'),
+import { readFile } from 'fs/promises';
+import { AsyncResult, Err, Ok } from 'ts-simple-result';
+
+enum FileErrorCode {
+  NotFound = 'notfound',
+}
+
+async function getFile(path: string): AsyncResult<Buffer, FileErrorCode> {
+  const res = await AsyncResult(readFile(path));
+  if (!res.ok) {
+    return Err(FileErrorCode.NotFound);
+  }
+
+  return Ok(res.val);
+}
+
+const res = await AsyncResult.all([
+  getFile('./file1.txt'),
+  getFile('./file2.txt'),
+  getFile('./file3.txt'),
 ]);
 
 if (res.ok) {
-  console.log('Files array:', res.val);
+  console.log('array of buffers:', res.val);
 } else {
-  console.log('Error reading file:', res.val.message);
+  console.log('Error reading file:', res.val);
 }
 ```

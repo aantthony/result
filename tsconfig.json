@@ -13,5 +13,6 @@
     "incremental": true,
     "declaration": true
   },
+  "include": ["src"],
   "exclude": ["dist", "node_modules"]
 }
