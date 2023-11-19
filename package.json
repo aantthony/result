@@ -1,0 +1,43 @@
+{
+  "name": "ts-simple-result",
+  "version": "1.0.0",
+  "description": "Typescript \"Result\" types.",
+  "keywords": [
+    "result"
+  ],
+  "homepage": "https://github.com/aantthony/result#readme",
+  "bugs": {
+    "url": "https://github.com/aantthony/result/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aantthony/result.git"
+  },
+  "license": "MIT",
+  "author": "Anthony Foster",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write .",
+    "lint": "eslint . --fix"
+  },
+  "prettier": "@vercel/style-guide/prettier",
+  "devDependencies": {
+    "@typescript-eslint/parser": "^6.11.0",
+    "@vercel/style-guide": "^5.1.0",
+    "eslint": "^8.54.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.2.2"
+  }
+}
